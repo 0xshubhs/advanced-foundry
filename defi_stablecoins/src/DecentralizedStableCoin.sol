@@ -24,11 +24,11 @@ pragma solidity ^0.8.0;
 // view & pure functions
 
 /*
-    * @title Decentralized Stablecoin  
+    * @title Decentralized Stablecoin
     *@author 0xShubham
     *Collateral : Crypto(ETH and BTC)
     *Stability Mechanism (Minting) : Algorithmic (Decentralised)
-    *(Relative Stability ) Anchored or Pegged --> $1.00 
+    *(Relative Stability ) Anchored or Pegged --> $1.00
 */
 
 import { ERC20Burnable, ERC20 } from "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";

@@ -10,7 +10,7 @@ contract Deploy is Script {
     address[] public tokenAddresses;
     address[] public priceFeedAddresses;
 
-    function run() external returns (DecentralizedStableCoin, DSCEngine, HelperConfig) {
+    function run() external returns (DecentralizedStableCoin, DSCEngine, HelperConfig) {  
         HelperConfig helperConfig = new HelperConfig(); // This comes with our mocks!
 
         (address wethUsdPriceFeed, address wbtcUsdPriceFeed, address weth, address wbtc, uint256 deployerKey) =
