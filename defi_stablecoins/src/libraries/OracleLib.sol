@@ -38,7 +38,13 @@ library OracleLib {
         return (roundId, price, startedAt, updatedAt, answeredInRound);
     }
 
-    function getTimeout(AggregatorV3Interface /* chainlinkFeed */ ) public pure returns (uint256) {
+    function getTimeout(
+        AggregatorV3Interface /* chainlinkFeed */
+    )
+        public
+        pure
+        returns (uint256)
+    {
         return TIMEOUT;
     }
 }
