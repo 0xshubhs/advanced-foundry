@@ -55,21 +55,22 @@ contract DSCEngineTest is Test {
         // Deploy contracts using the Deploy script
         deployer = new Deploy();
         (dsc, dscEngine, helperConfig) = deployer.run();
-        (ethUsdPriceFeed, btcUsdPriceFeed, weth, wbtc,) = helperConfig.activeNetworkConfig();
-
-        // Fund test users with WETH for testing
-        ERC20Mock(weth).mint(USER, STARTING_USER_BALANCE);
-        ERC20Mock(weth).mint(LIQUIDATOR, STARTING_USER_BALANCE);
+        (ethUsdPriceFeed,btcUsdPriceFeed, weth,,) = helperConfig.activeNetworkConfig();
     }
+    //////////
+    // Price Test //
+    //////////
 
-    /*//////////////////////////////////////////////////////////////
-                           CONSTRUCTOR TESTS
-    //////////////////////////////////////////////////////////////*/
+    // function testGetUsdValue() public {
+    //     uint256 ethAmount = 15e18; // 15 ETH
+    //     // Assuming the price feed returns 2000 USD per ETH
+    //     // This is a mock value, in a real scenario you would get this from the price feed contract
+    //     uint256 expectedUsd = 30_000e18; // 2000
+    //     uint256 usdValue = dscEngine.getUsdValue(weth, ethAmount);
+    //     assertEq(usdValue, expectedUsd, "USD value should be 30000 USD for 15 ETH at 2000 USD per ETH");
+    // }
 
-    /**
-     * @notice Test that constructor reverts when token addresses and price feed arrays have different lengths
-     * @dev This ensures the DSCEngine enforces proper initialization with matching token/pricefeed pairs
-     */
+    
     function testRevertsIfTokenLengthDoesntMatchPriceFeeds() public {
         // Setup: Push 1 token but 2 price feeds - creating a mismatch
         tokenaddresses.push(weth);

@@ -1,0 +1,23 @@
+{
+  "../defi_stablecoins/lib/chainlink-brownie-contracts": {
+    "rev": "c6d0ca512f1b09d93bc81415d246dbee7e5c6894"
+  },
+  "../defi_stablecoins/lib/forge-std": {
+    "rev": "fc560fa34fa12a335a50c35d92e55a6628ca467c"
+  },
+  "../defi_stablecoins/lib/foundry-devops": {
+    "rev": "5415faa72d362368cd5a044602c8c6a11bb497be"
+  },
+  "../defi_stablecoins/lib/openzeppelin-contracts": {
+    "rev": "0a25c1940ca220686588c4af3ec526f725fe2582"
+  },
+  "../nft-collection/lib/forge-std": {
+    "rev": "b93cf4bc34ff214c099dc970b153f85ade8c9f66"
+  },
+  "../nft-collection/lib/openzeppelin-contracts": {
+    "rev": "69c8def5f222ff96f2b5beff05dfba996368aa79"
+  },
+  "lib/foundry-devops": {
+    "rev": "df9f90b490423578142b5dd50752db9427efb2ac"
+  }
+}

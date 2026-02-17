@@ -15,3 +15,5 @@ docs/
 
 package-lock.json
 node_modules
+# SigScan generated signatures
+signatures/
