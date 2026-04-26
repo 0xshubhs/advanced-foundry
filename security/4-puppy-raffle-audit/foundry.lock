@@ -20,6 +20,12 @@
   "../../nft-collection/lib/openzeppelin-contracts": {
     "rev": "69c8def5f222ff96f2b5beff05dfba996368aa79"
   },
+  "lib/base64": {
+    "tag": {
+      "name": "v1.1.0",
+      "rev": "dcbf852ba545b3d15de0ac0ef88dce934c090c8e"
+    }
+  },
   "lib/forge-std": {
     "tag": {
       "name": "v1.3.0",
