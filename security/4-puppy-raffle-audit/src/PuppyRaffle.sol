@@ -94,13 +94,18 @@ contract PuppyRaffle is ERC721, Ownable {
     /// @param playerIndex the index of the player to refund. You can find it externally by calling `getActivePlayerIndex`
     /// @dev This function will allow there to be blank spots in the array
     function refund(uint256 playerIndex) public {
+        //@audit MEV
         address playerAddress = players[playerIndex];
         require(playerAddress == msg.sender, "PuppyRaffle: Only the player can refund");
         require(playerAddress != address(0), "PuppyRaffle: Player already refunded, or is not active");
-
+        // @audit Reentrancty attack can be done 
+        // attacker can drain the funds by having receive fallback fucntion which would jyst readily call this function and get all the entrancefees of everyone drain out 
+        // so we change the states before doing the tx 
+        // like players(msg.sender).sendValue(entrancefee )d is an external call and the state changes after the external call so we change the srtare before the external call 
+        // becayuse if the state changes after the payable it will just revert if attacker tries to attack it since it cannot drain due to its index has been reset to ) at playerIndex 
         payable(msg.sender).sendValue(entranceFee);
-
         players[playerIndex] = address(0);
+
         emit RaffleRefunded(playerAddress);
     }
 
@@ -113,6 +118,8 @@ contract PuppyRaffle is ERC721, Ownable {
                 return i;
             }
         }
+        // q what if the user is at 0th index? 
+        // @audit if the player is aty index 0,. it ill return 0 and a player might think they are inactive 
         return 0;
     }
 
