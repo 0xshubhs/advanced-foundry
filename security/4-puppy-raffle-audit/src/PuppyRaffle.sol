@@ -98,7 +98,7 @@ contract PuppyRaffle is ERC721, Ownable {
         address playerAddress = players[playerIndex];
         require(playerAddress == msg.sender, "PuppyRaffle: Only the player can refund");
         require(playerAddress != address(0), "PuppyRaffle: Player already refunded, or is not active");
-        // @audit Reentrancty attack can be done 
+        // @audit Reentrancy attack can be done 
         // attacker can drain the funds by having receive fallback fucntion which would jyst readily call this function and get all the entrancefees of everyone drain out 
         // so we change the states before doing the tx 
         // like players(msg.sender).sendValue(entrancefee )d is an external call and the state changes after the external call so we change the srtare before the external call 
@@ -130,14 +130,20 @@ contract PuppyRaffle is ERC721, Ownable {
     /// @dev we reset the active players array after the winner is selected
     /// @dev we send 80% of the funds to the winner, the other 20% goes to the feeAddress
     function selectWinner() external {
+
+        // q does this follows CEI ? 
         require(block.timestamp >= raffleStartTime + raffleDuration, "PuppyRaffle: Raffle not over");
         require(players.length >= 4, "PuppyRaffle: Need at least 4 players");
+
+        // @audit Weak Randomness  // chainlink vrf
         uint256 winnerIndex =
             uint256(keccak256(abi.encodePacked(msg.sender, block.timestamp, block.difficulty))) % players.length;
         address winner = players[winnerIndex];
         uint256 totalAmountCollected = players.length * entranceFee;
         uint256 prizePool = (totalAmountCollected * 80) / 100;
         uint256 fee = (totalAmountCollected * 20) / 100;
+
+        //@audit overflow
         totalFees = totalFees + uint64(fee);
 
         uint256 tokenId = totalSupply();
