@@ -2,7 +2,9 @@
 pragma solidity ^0.7.6;
 pragma experimental ABIEncoderV2;
 
-import {Test, console2} from "../lib/forge-std/src/Test.sol";
+// import {Test} from "forge-std";
+import {Test} from "forge-std/Test.sol";
+import {console2} from "forge-std/console2.sol";
 import {PuppyRaffle} from "../src/PuppyRaffle.sol";
 
 contract PuppyRaffleTest is Test {
@@ -226,7 +228,7 @@ contract PuppyRaffleTest is Test {
         assertEq(address(feeAddress).balance, expectedPrizeAmount);
     }
 
-    function test_RefundReentrancy() public  {
+    function test_RefundReentrancy() public  { 
         address[] memory players = new address[](4);
         players[0] = playerOne;
         players[1] = playerTwo;
@@ -253,7 +255,25 @@ contract PuppyRaffleTest is Test {
         console2.log("Starting Contract puppy  contract Balance " ,address(puppyRaffle).balance );
 
     
-    }   
+    }
+    function test_overflowIn_selectWinner() public {
+        address[] memory players = new address[](4);
+        players[0] = playerOne;
+        players[1] = playerTwo;
+        players[2] = playerThree;
+        players[3] = playerFour;
+
+        for (uint256 i = 0; i < 3918; i++) {
+            puppyRaffle.enterRaffle{value: entranceFee * players.length}(players);
+            vm.warp(block.timestamp + duration + 1);
+            vm.roll(block.number + 1);
+            puppyRaffle.selectWinner();
+        console2.log("totalFees",uint256(puppyRaffle.totalFees()));
+        }
+        // uint256 _totalfees = uint256(puppyRaffle.totalFees());
+        // uint64 integer overflow woukd come at 3918th user enters. since it cannot add more and will basically throw error and cannot accumulate anymore any user. 
+        // 16900251543085776896 , 1.69e19 , OUT OF GAS , for 3918 players only it can accumulate as of now playersEntered,
+    }
 }
 
 contract ReentrancyAttacker {
