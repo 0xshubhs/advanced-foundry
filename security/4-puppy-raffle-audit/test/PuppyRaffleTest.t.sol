@@ -261,13 +261,10 @@ contract ReentrancyAttacker {
     uint256 entranceFee = 1e18;
     uint256 attackerIndex;
 
-
     constructor (PuppyRaffle _puppyRaffle) {
         puppyRaffle = _puppyRaffle;
         entranceFee = puppyRaffle.entranceFee();
-
     }
-
     function attack() external payable {
         address[] memory players = new address[](1);
         players[0] = address(this);
@@ -283,11 +280,9 @@ contract ReentrancyAttacker {
         }
             
     }
-    
     fallback() external payable {
         _stealmoney();
     }
-
     /// @notice Accept ETH transfers
     receive() external payable {
         _stealmoney();
