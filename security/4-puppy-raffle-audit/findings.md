@@ -52,3 +52,24 @@ LIKELIHOOD : MEDIUM
 
 
 ## Integer overflow at selectwinner ( totalfees )
+
+`uint64 totalFees = entranceFee * players.length;` is a potential integer overflow. If the number of players is large enough, the multiplication could overflow and result in an incorrect total fee calculation. This could lead to incorrect behavior in the contract, such as underpaying the winner or causing the contract to fail., 
+
+cause if totalfees gets added any more + 1 , totalfees will be 0 
+
+
+
+## selectwinner can be reverted many times leading to a potential Denial of Service.
+
+10 random wallets entered withourt a fallback oir receicve fuction 
+the lottery end 
+selec and it didnt work , Medium 
+
+
+## mishandling of ETH in withdrawdee
+
+
+## Missing Events 
+
+
+
